@@ -1,10 +1,16 @@
 public class ThreadCheckArray implements Runnable 
 {
+	private long startTime;
+	private long endTime;
 	private boolean flag;
 	private boolean [] winArray;
 	SharedData sd;
 	int[] array;
 	int b;
+
+	public long getExecutionTime() {
+		return endTime - startTime;
+	}
 	
 	public ThreadCheckArray(SharedData sd) 
 	{
@@ -51,6 +57,8 @@ public class ThreadCheckArray implements Runnable
 	}
 
 	public void run() {
+		startTime = System.currentTimeMillis();
+
 		if (array.length != 1)
 			if (Thread.currentThread().getName().equals("thread1"))
 				rec(array.length-1, b - array[array.length - 1]);
@@ -75,5 +83,8 @@ public class ThreadCheckArray implements Runnable
 				sd.setWinArray(winArray);
 			}	
 		}
+
+		endTime = System.currentTimeMillis();
+		System.out.println(Thread.currentThread().getName() + " took " + getExecutionTime() + " ms");
 	}
 }
