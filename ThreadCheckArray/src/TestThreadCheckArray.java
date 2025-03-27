@@ -27,8 +27,12 @@ public class TestThreadCheckArray {
 			{
 				thread1.join();
 				thread2.join();
-				System.out.println("Thread 1 execution time: " + tca1.getExecutionTime() + " ms");
-				System.out.println("Thread 2 execution time: " + tca2.getExecutionTime() + " ms");
+				if (tca1.isWinner())
+					System.out.println("thread1 found the solution first!");
+				else if (tca2.isWinner())
+					System.out.println("thread2 found the solution first!");
+				else
+					System.out.println("No thread found the solution.");
 			} 
 			catch (InterruptedException e)
 			{
