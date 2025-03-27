@@ -17,14 +17,18 @@ public class TestThreadCheckArray {
 			
 			SharedData sd = new SharedData(array, num);
 			
-			thread1 = new Thread(new ThreadCheckArray(sd), "thread1");
-			thread2 = new Thread(new ThreadCheckArray(sd), "thread2");
+			ThreadCheckArray tca1 = new ThreadCheckArray(sd);
+			ThreadCheckArray tca2 = new ThreadCheckArray(sd);
+			thread1 = new Thread(tca1, "thread1");
+			thread2 = new Thread(tca2, "thread2");
 			thread1.start();
 			thread2.start();
 			try 
 			{
 				thread1.join();
 				thread2.join();
+				System.out.println("Thread 1 execution time: " + tca1.getExecutionTime() + " ms");
+				System.out.println("Thread 2 execution time: " + tca2.getExecutionTime() + " ms");
 			} 
 			catch (InterruptedException e)
 			{
