@@ -73,6 +73,20 @@ public class TestThreadCheckArray {
 				else
 					System.out.print("0    ");	
 			}
+
+			System.out.println();
+
+			System.out.print(sd.getB() + " = ");
+			boolean first = true;
+			for (int i = 0; i < sd.getArray().length; i++) {
+				if (sd.getWinArray()[i]) {
+					if (!first)
+						System.out.print(" + ");
+					System.out.print(sd.getArray()[i]);
+					first = false;
+				}
+			}
+			System.out.println();
 		}
 	}
 
