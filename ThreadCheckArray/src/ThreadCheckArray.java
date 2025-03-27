@@ -4,12 +4,17 @@ public class ThreadCheckArray implements Runnable
 	private long endTime;
 	private boolean flag;
 	private boolean [] winArray;
+	private boolean isWinner = false;
 	SharedData sd;
 	int[] array;
 	int b;
 
 	public long getExecutionTime() {
 		return endTime - startTime;
+	}
+
+	public boolean isWinner() {
+		return isWinner;
 	}
 	
 	public ThreadCheckArray(SharedData sd) 
@@ -35,9 +40,11 @@ public class ThreadCheckArray implements Runnable
 			if(b == 0 || b == array[n-1])
 			{
 				flag = true;
-				synchronized (sd) 
-				{
-					sd.setFlag(true);
+				synchronized (sd) {
+					if (!sd.getFlag()) {
+						sd.setFlag(true);
+						sd.setWinnerThreadName(Thread.currentThread().getName());
+					}
 				}			
 			}
 			if (b == array[n-1])
@@ -72,6 +79,7 @@ public class ThreadCheckArray implements Runnable
 				synchronized (sd) 
 				{
 					sd.setFlag(true);
+					sd.setWinnerThreadName(Thread.currentThread().getName());
 				}
 			}
 		if (flag)
@@ -81,6 +89,7 @@ public class ThreadCheckArray implements Runnable
 			synchronized (sd) 
 			{
 				sd.setWinArray(winArray);
+				if (!isWinner) isWinner = true;
 			}	
 		}
 
